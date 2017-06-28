@@ -29,4 +29,5 @@ Gem::Specification.new do |s|
   # s.bindir        = "exe"
   # s.executables   = %w[gemupdate gemup]
   s.require_paths = ["lib"]
+  s.files = ["lib/gemupdate.rb"]
 end

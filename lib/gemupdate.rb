@@ -2,7 +2,7 @@ require 'bundler'
 
 module Gemupdate
 
-  def run
+  def self.run
     lockfile = Bundler::LockfileParser.new(Bundler.read_file("Gemfile.lock"))
 
     lockfile.specs.each do |s|
