@@ -1,14 +1,14 @@
 # coding: utf-8
 # frozen_string_literal: true
 Gem::Specification.new do |s|
-  s.name        = "bundler"
-  s.version     = Bundler::VERSION
+  s.name        = "gemupdate"
+  s.version     = "0.0.1"
   s.license     = "MIT"
   s.authors     = [
     "Dmitry Kolupaev", "Vladimir Evseev"
   ]
   s.email       = ["dmitry.klpv@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/Elonsoft/gemupdate"
   s.summary     = "Interactive updater for gems"
   s.description = "Gem updater with interactive command-line interface."
 
@@ -24,9 +24,9 @@ Gem::Specification.new do |s|
   # todo: revisit this later
   s.required_ruby_version     = ">= 2.4.0"
 
-  s.add_development_dependency "bundler", "~> 1.0.0"
+  s.add_development_dependency "bundler", "~> 1.15"
 
-  s.bindir        = "exe"
-  s.executables   = %w[gemupdate gemup]
+  # s.bindir        = "exe"
+  # s.executables   = %w[gemupdate gemup]
   s.require_paths = ["lib"]
 end
