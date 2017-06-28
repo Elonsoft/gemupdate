@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   # end
 
   # todo: revisit this later
-  s.required_ruby_version     = ">= 2.4.0"
+  s.required_ruby_version = ">= 2.4.0"
 
   s.add_development_dependency "bundler", "~> 1.15"
 
