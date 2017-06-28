@@ -26,8 +26,8 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "bundler", "~> 1.15"
 
-  # s.bindir        = "exe"
-  # s.executables   = %w[gemupdate gemup]
+  s.bindir        = "exe"
+  s.executables   = %w[gemupdate]
   s.require_paths = ["lib"]
   s.files = ["lib/gemupdate.rb"]
 end

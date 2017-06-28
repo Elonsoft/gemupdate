@@ -1,9 +1,9 @@
 require 'bundler'
 
-module Gemupdate
+class Gemupdate
 
-  def self.run
-    lockfile = Bundler::LockfileParser.new(Bundler.read_file("Gemfile.lock"))
+  def self.run(gemfile_lock_path)
+    lockfile = Bundler::LockfileParser.new(Bundler.read_file(gemfile_lock_path))
 
     lockfile.specs.each do |s|
       puts "Spec: #{s}"

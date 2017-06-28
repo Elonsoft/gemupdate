@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+Signal.trap("INT") do
+  # TODO: log early exit
+  exit 1
+end
+
+require "gemupdate"
+
+puts "About to run gemupdate..."
+
+path = "Gemfile.lock"
+Gemupdate.run(path)
