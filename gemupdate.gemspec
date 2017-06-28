@@ -24,7 +24,8 @@ Gem::Specification.new do |s|
   # todo: revisit this later
   s.required_ruby_version = ">= 2.4.0"
 
-  s.add_development_dependency "bundler", "~> 1.15"
+  s.add_runtime_dependency "bundler", "~> 1.15"
+  s.add_runtime_dependency "inquirer", "~> 0.2"
 
   s.bindir        = "exe"
   s.executables   = %w[gemupdate]
