@@ -2,40 +2,11 @@ require 'bundler'
 require 'inquirer'
 require 'paint'
 
-class GemUpdateRow
-  attr_accessor :name, :locked_version, :available_version
-
-  def initialize(name)
-    @name = name
-    @locked_version = "1.4.4"
-    @available_version = "1.5.1"
-  end
-
-  def name_colored
-    Paint[locked_version, "gold"]
-  end
-
-  def locked_version_colored
-    Paint[locked_version, "white"]
-  end
-
-  def available_version_colored
-    Paint[available_version, "white"]
-  end
-
-  def to_a
-    [name.to_s, locked_version, '>', available_version]
-  end
-
-  # def to_a
-    # [name_colored, locked_version_colored, available_version_colored]
-  # end
-end
+require_relative './gemupdate/gem_update_row.rb'
 
 class Gemupdate
 
   def self.run(gemfile_lock_path)
-
     unless File.exists?(gemfile_lock_path)
       puts "No Gemfile in that directory"
       return
@@ -50,13 +21,12 @@ class Gemupdate
 
   def self.parse_lockfile(lockfile_raw)
     lockfile = Bundler::LockfileParser.new(lockfile_raw)
-
     lockfile.specs.map { |spec| GemUpdateRow.new(spec) }
   end
 
   def self.ask_user(update_rows)
     question = "Pick the gems you want to update... (space to select, enter to update selected)"
-    options = add_spaces_to_options(update_rows)
+    options = colorize_options(add_spaces_to_options(update_rows))
 
     default_options = [false] * update_rows.length
 
@@ -75,6 +45,18 @@ class Gemupdate
       row.each_with_index.map do |val, index|
         spaces_to_add = ' ' * (max_lengths[index] - val.length)
         val + spaces_to_add
+      end
+    end
+  end
+
+  def self.colorize_options(rows)
+    rows.map do |row|
+      row.each_with_index.map do |val, index|
+        if index == 0
+          Paint[val, 'red']
+        else
+          val
+        end
       end.join('  ')
     end
   end

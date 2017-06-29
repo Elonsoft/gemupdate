@@ -30,6 +30,6 @@ Gem::Specification.new do |s|
 
   s.bindir        = "exe"
   s.executables   = %w[gemupdate]
-  s.require_paths = ["lib"]
-  s.files = ["lib/gemupdate.rb"]
+  # s.require_paths = ["lib/gemupdate"]
+  s.files = ["lib/gemupdate.rb", "lib/gemupdate/gem_update_row.rb"]
 end
