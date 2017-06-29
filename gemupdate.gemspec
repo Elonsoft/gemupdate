@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency "bundler", "~> 1.15"
   s.add_runtime_dependency "inquirer", "~> 0.2"
+  s.add_runtime_dependency "paint", "~> 2.0"
 
   s.bindir        = "exe"
   s.executables   = %w[gemupdate]
