@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.version     = "0.0.1"
   s.license     = "MIT"
   s.authors     = [
-    "Dmitry Kolupaev", "Vladimir Evseev"
+    "Dmitry Kolupaev", "Alexandra Terzieva"
   ]
   s.email       = ["dmitry.klpv@gmail.com"]
   s.homepage    = "https://github.com/Elonsoft/gemupdate"
@@ -31,5 +31,5 @@ Gem::Specification.new do |s|
   s.bindir        = "exe"
   s.executables   = %w[gemupdate]
   # s.require_paths = ["lib/gemupdate"]
-  s.files = ["lib/gemupdate.rb", "lib/gemupdate/gem_update_row.rb"]
+  s.files = ["lib/gemupdate.rb", "lib/gemupdate/gem_update_row.rb", "lib/gemupdate/outdated_gems.rb", "lib/gemupdate/utils.rb"]
 end

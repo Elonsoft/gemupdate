@@ -10,5 +10,4 @@ require "gemupdate"
 
 puts "About to run gemupdate..."
 
-path = "Gemfile.lock"
-Gemupdate.run(path)
+Gemupdate.run
