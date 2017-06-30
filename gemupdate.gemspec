@@ -12,15 +12,6 @@ Gem::Specification.new do |s|
   s.summary     = 'Interactive updater for gems'
   s.description = 'Gem updater with interactive command-line interface.'
 
-  # if s.respond_to?(:metadata=)
-    # s.metadata = {
-      # "bug_tracker_uri" => "",
-      # "changelog_uri" => "",
-      # "homepage_uri" => "",
-      # "source_code_uri" => "",
-    # }
-  # end
-
   # todo: revisit this later
   s.required_ruby_version = '>= 2.4.0'
 
@@ -30,6 +21,7 @@ Gem::Specification.new do |s|
 
   s.bindir        = 'exe'
   s.executables   = %w[gemupdate]
-  # s.require_paths = ['lib/gemupdate']
-  s.files = %w(lib/gemupdate.rb lib/gemupdate/gem_update_row.rb lib/gemupdate/outdated_gems.rb lib/gemupdate/utils.rb)
+
+  s.files = `git ls-files -z`.split("\x0").reject {|f| f.match(%r{^(test|spec|features)/}) }
+  s.require_paths = ['lib']
 end

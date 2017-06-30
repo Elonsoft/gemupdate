@@ -14,7 +14,7 @@ class Gemupdate
     outdated_gems_list = OutdatedGems.new.make_list
 
     if outdated_gems_list.empty?
-      puts "Bundle up to date!\n"
+      puts 'Bundle up to date!\n'
     else
       specs = []
       outdated_gems_list.each do |gem|
