@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = 'Interactive updater for gems'
   s.description = 'Gem updater with interactive command-line interface.'
 
-  # todo: revisit this later
+  # TODO: revisit this later
   s.required_ruby_version = '>= 2.4.0'
 
   s.add_runtime_dependency 'bundler',  '~> 1.15'
@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'paint',    '~> 2.0'
 
   s.bindir        = 'exe'
-  s.executables   = %w[gemupdate]
+  s.executables   = %w(gemupdate)
 
   s.files = `git ls-files -z`.split("\x0")
   s.require_paths = ['lib']

@@ -22,7 +22,7 @@ class Gemupdate
 
       outdated_gems_to_update = ask_what_gems_to_update(outdated_gems_list)
       if outdated_gems_to_update.empty?
-        puts no_gems_picked
+        no_gems_picked
         return
       end
 
@@ -32,7 +32,8 @@ class Gemupdate
     private
 
     def ask_what_gems_to_update(update_rows)
-      options, default = GemUpdateRow.to_ask_options(update_rows)
+      gem_update_rows = update_rows.map { |spec| GemUpdateRow.from_gem_spec(spec) }
+      options, default = GemUpdateRow.to_ask_options(gem_update_rows)
 
       indexes = Ask.checkbox(
         question,
@@ -56,12 +57,12 @@ class Gemupdate
       puts 'Bundle up to date!\n'
     end
 
-    def question
-      'Pick the gems you want to update... (space to select, enter to update selected)'
+    def no_gems_picked
+      puts 'You should choose any gems to update!\n'
     end
 
-    def no_gems_picked
-      'You should choose any gems to update!\n'
+    def question
+      'Pick the gems you want to update... (space to select, enter to update selected)'
     end
 
   end
