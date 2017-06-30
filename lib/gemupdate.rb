@@ -29,8 +29,6 @@ class Gemupdate
 
     definition_resolution.call
 
-    puts ""
-    outdated_gems_by_groups = {}
     outdated_gems_list = []
 
     # Loop through the current specs
@@ -49,16 +47,10 @@ class Gemupdate
         groups = dependency.groups.join(", ")
       end
 
-      outdated_gems_list << {:active_spec => active_spec,
-                             :current_spec => current_spec,
-                             :dependency => dependency,
-                             :groups => groups}
-
-      outdated_gems_by_groups[groups] ||= []
-      outdated_gems_by_groups[groups] << {:active_spec => active_spec,
-                                          :current_spec => current_spec,
-                                          :dependency => dependency,
-                                          :groups => groups}
+      outdated_gems_list << { active_spec: active_spec,
+                              current_spec: current_spec,
+                              dependency: dependency,
+                              groups: groups }
     end
 
     if outdated_gems_list.empty?
@@ -152,7 +144,8 @@ class Gemupdate
       dependency_version = dependency.requirement
     end
 
-    GemUpdateRow.new(active_spec.name, current_version, spec_version, dependency_version)
+    GemUpdateRow.new(active_spec.name, current_version,
+                     spec_version, dependency_version)
   end
 
   def self.retrieve_active_spec(definition, current_spec)
