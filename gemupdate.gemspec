@@ -22,6 +22,6 @@ Gem::Specification.new do |s|
   s.bindir        = 'exe'
   s.executables   = %w[gemupdate]
 
-  s.files = `git ls-files -z`.split("\x0").reject {|f| f.match(%r{^(test|spec|features)/}) }
+  s.files = `git ls-files -z`.split("\x0")
   s.require_paths = ['lib']
 end

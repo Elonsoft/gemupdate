@@ -1,61 +1,68 @@
 require 'bundler'
-require 'inquirer'
 require 'bundler/cli'
 require 'bundler/cli/update'
 
+require 'inquirer'
+require 'paint'
+
 require_relative './gemupdate/outdated_gems.rb'
-require_relative './gemupdate/utils.rb'
+require_relative './gemupdate/gem_update_row.rb'
+require_relative './gemupdate/command_line_query_utils.rb'
 
 class Gemupdate
 
-  def self.run
-    @ut = Utils.new
+  class << self
 
-    outdated_gems_list = OutdatedGems.new.make_list
-
-    if outdated_gems_list.empty?
-      puts 'Bundle up to date!\n'
-    else
-      specs = []
-      outdated_gems_list.each do |gem|
-        specs << @ut.add_gem(
-            gem[:current_spec],
-            gem[:active_spec],
-            gem[:dependency]
-        )
+    def run
+      outdated_gems_list = OutdatedGems.make_list
+      if outdated_gems_list.empty?
+        up_to_date
+        return
       end
-      ask_user(specs)
-      exit 1
+
+      outdated_gems_to_update = ask_what_gems_to_update(outdated_gems_list)
+      if outdated_gems_to_update.empty?
+        puts no_gems_picked
+        return
+      end
+
+      do_update(outdated_gems_to_update)
     end
-  end
 
-  private
+    private
 
-  def self.ask_user(update_rows)
-    question = "Pick the gems you want to update... (space to select, enter to update selected)"
-    options = @ut.colorize_options(@ut.add_spaces_to_options(update_rows))
+    def ask_what_gems_to_update(update_rows)
+      options, default = GemUpdateRow.to_ask_options(update_rows)
 
-    default_options = [false] * update_rows.length
+      indexes = Ask.checkbox(
+        question,
+        options,
+        default: default
+      )
 
-    idx = Ask.checkbox(
-      question,
-      options,
-      default: default_options
-    )
-    do_update(update_rows, idx)
-  end
+      gem_names = update_rows.map(&:name)
+      gem_names.select.with_index do |_gem_name, index|
+        indexes[index]
+      end
+    end
 
-  def self.do_update(update_rows, idx)
-    if idx.any?
+    def do_update(gems_to_update)
       Bundler.ui = Bundler::UI::Shell.new
-      Bundler.ui.level = "error"
-      name = update_rows.map(&:name)
-      up = name.delete_if {|x| !idx[name.index(x)]}
-      Bundler::CLI::Update.new({}, up).run
-    else
-      puts "You should choose any gems to update!\n"
+      Bundler.ui.level = 'error'
+      Bundler::CLI::Update.new({}, gems_to_update).run
     end
+
+    def up_to_date
+      puts 'Bundle up to date!\n'
+    end
+
+    def question
+      'Pick the gems you want to update... (space to select, enter to update selected)'
+    end
+
+    def no_gems_picked
+      'You should choose any gems to update!\n'
+    end
+
   end
-
-
 end
